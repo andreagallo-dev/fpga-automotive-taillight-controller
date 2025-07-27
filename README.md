@@ -2,7 +2,7 @@
 
 An implementation of a comprehensive automotive tail light controller on a Xilinx Artix-7 FPGA. The system, described in Verilog, replicates all standard vehicle signaling functions (turn signals, brakes, reverse, hazards) and introduces an enhanced emergency mode featuring a timer displayed on a 7-segment display.
 
-![FPGA in Emergency mode(waveform_fsm_emergency.PNG)
+![FPGA in Emergency mode(waveform_fsm_emergency.png)
 
 ### Key Features
 
