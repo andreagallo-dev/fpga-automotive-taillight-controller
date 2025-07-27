@@ -1,0 +1,80 @@
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
+| Date         : Sat May 31 17:47:45 2025
+| Host         : PC33 running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file top_control_sets_placed.rpt
+| Design       : top
+| Device       : xc7a100t
+------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Number of unique control sets                            |    13 |
+| Unused register locations in slices containing registers |    61 |
++----------------------------------------------------------+-------+
+
+
+2. Histogram
+------------
+
++--------+--------------+
+| Fanout | Control Sets |
++--------+--------------+
+|      1 |            5 |
+|      4 |            1 |
+|      6 |            1 |
+|    16+ |            6 |
++--------+--------------+
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |               1 |            1 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |             162 |           50 |
+| Yes          | No                    | No                     |               0 |            0 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |               8 |            5 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++----------------------+--------------------------------+-----------------------------------+------------------+----------------+
+|     Clock Signal     |          Enable Signal         |          Set/Reset Signal         | Slice Load Count | Bel Load Count |
++----------------------+--------------------------------+-----------------------------------+------------------+----------------+
+|  CLK100MHZ_IBUF_BUFG | deb_brake/btn_out_i_1_n_0      | rst_IBUF                          |                1 |              1 |
+|  CLK100MHZ_IBUF_BUFG | deb_l/btn_out_i_1__2_n_0       | rst_IBUF                          |                1 |              1 |
+|  CLK100MHZ_IBUF_BUFG | deb_reverse/btn_out_i_1__0_n_0 | rst_IBUF                          |                1 |              1 |
+|  CLK100MHZ_IBUF_BUFG | deb_u/btn_out_i_1__1_n_0       | rst_IBUF                          |                1 |              1 |
+|  clk_div/clk         |                                |                                   |                1 |              1 |
+|  clk_div/clk         | timer/minutes_n_0              | fsm_inst/SR[0]                    |                1 |              4 |
+|  clk_div/clk         |                                | fsm_inst/SR[0]                    |                2 |              6 |
+|  CLK100MHZ_IBUF_BUFG |                                | deb_brake/counter[0]_i_1_n_0      |                6 |             21 |
+|  CLK100MHZ_IBUF_BUFG |                                | deb_l/counter[0]_i_1__2_n_0       |                6 |             21 |
+|  CLK100MHZ_IBUF_BUFG |                                | deb_reverse/counter[0]_i_1__0_n_0 |                6 |             21 |
+|  CLK100MHZ_IBUF_BUFG |                                | deb_u/counter[0]_i_1__1_n_0       |                6 |             21 |
+|  clk_div/CLK         |                                | fsm_inst/SS[0]                    |                9 |             23 |
+|  CLK100MHZ_IBUF_BUFG |                                | rst_IBUF                          |               15 |             49 |
++----------------------+--------------------------------+-----------------------------------+------------------+----------------+
+
+

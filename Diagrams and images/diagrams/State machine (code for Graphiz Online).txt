@@ -1,0 +1,41 @@
+digraph FSM_Tail_Light {
+    // Global attributes for improved spacing
+    graph [nodesep=0.8, ranksep=1.2, splines=polyline]; // Increased node and rank separation, straight polyline edges
+
+    rankdir=TD; // Layout: Top-Down
+    node [shape=box, style=rounded, fontsize=10]; // Default node style, slightly smaller font
+
+    // State Definitions with main outputs (all English, "Turns" for indicators)
+    NORMAL      [label="NORMAL\nTurns: OFF\nBrakes: brake_btn\nReverse: reverse_sw\nEmergAct: 0"];
+    LEFT_TURN   [label="LEFT_TURN\nTurns: L blink\nBrakes: brake_btn\nReverse: reverse_sw\nEmergAct: 0"];
+    RIGHT_TURN  [label="RIGHT_TURN\nTurns: R blink\nBrakes: brake_btn\nReverse: reverse_sw\nEmergAct: 0"];
+    FOUR_WAY    [label="FOUR_WAY\nTurns: L+R blink\nBrakes: brake_btn\nReverse: reverse_sw\nEmergAct: 0"];
+    EMERGENCY   [label="EMERGENCY\nTurns: L+R blink\nBrakes: ON\nReverse: reverse_sw\nEmergAct: 1", style="rounded,filled", fillcolor=lightcoral];
+
+    // Dummy initial state for the reset transition
+    __start0 [label="", shape=none, width=0, height=0];
+
+    // Transitions
+    __start0 -> NORMAL [label="rst=1\n(from any state)", fontsize=9];
+
+    // Transitions driven by emergency_btn (high priority)
+    NORMAL      -> EMERGENCY [label="emergency_btn=1", fontsize=9];
+    LEFT_TURN   -> EMERGENCY [label="emergency_btn=1", fontsize=9];
+    RIGHT_TURN  -> EMERGENCY [label="emergency_btn=1", fontsize=9];
+    FOUR_WAY    -> EMERGENCY [label="emergency_btn=1", fontsize=9];
+    EMERGENCY   -> NORMAL    [label="emergency_btn=1\n(disables)", fontsize=9];
+    EMERGENCY   -> EMERGENCY [label="emergency_btn=0\n(remains)", arrowhead=normal, style=dashed, fontsize=9];
+
+    // Transitions when emergency_btn=0 (this condition is implicitly ANDed with the labels below
+    // due to the Verilog FSM's 'if (emergency_btn) ... else if (current_state != EMERGENCY)' structure)
+    NORMAL      -> LEFT_TURN   [label="left_sw=1", fontsize=9];
+    NORMAL      -> RIGHT_TURN  [label="right_sw=1", fontsize=9];
+    NORMAL      -> FOUR_WAY    [label="four_way_sw=1", fontsize=9];
+
+    LEFT_TURN   -> NORMAL      [label="!left_sw AND\n!four_way_sw", fontsize=9];
+    RIGHT_TURN  -> NORMAL      [label="!right_sw AND\n!four_way_sw", fontsize=9];
+    FOUR_WAY    -> NORMAL      [label="!four_way_sw", fontsize=9];
+
+    // Self-loops for NORMAL, LEFT_TURN, RIGHT_TURN, FOUR_WAY (when no other outgoing transition condition is met
+    // AND !emergency_btn) are implicitly handled by the FSM logic (`next_state = current_state;` if no change).
+}
